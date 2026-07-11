@@ -3,6 +3,13 @@
 Landing page où le scroll pilote un vol de caméra continu à travers un « studio tech »
 généré par IA (6 scènes, technique scroll-world / pages produit Apple).
 
+- **Prod** : https://portfolio-luc-baxmann.vercel.app (projet Vercel `portfolio-luc-baxmann`, deploy via `cd site && npx vercel deploy --prod`)
+- **Repo** : https://github.com/lucbaxmannrenard-coder/portfolio-luc-baxmann
+- **Contact pipeline** : formulaire → table `contact_requests` (Supabase `portfolio-luc`, RLS insert-only)
+  + notification email via FormSubmit vers luc.baxmannrenard@kedgebs.com
+  (⚠️ activer FormSubmit : cliquer le lien de confirmation reçu sur la boîte KEDGE au 1er envoi).
+  Lire les demandes : dashboard Supabase → Table Editor → contact_requests.
+
 ## Structure
 
 - `site/` — le site final, 100 % statique (index.html + scrub-engine.js + assets).
