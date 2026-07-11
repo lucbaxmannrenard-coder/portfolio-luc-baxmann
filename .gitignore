@@ -1,0 +1,13 @@
+# Generation pipeline artifacts (heavy renders, local envs) — the site keeps its own encoded copies
+generation/work/
+generation/venv/
+generation/venv39/
+generation/node_modules/
+generation/qa/
+generation/package.json
+generation/package-lock.json
+
+# Vercel
+.vercel
+
+.DS_Store

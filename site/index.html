@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Luc Baxmann — Web Developer & AI Automation Specialist</title>
+  <meta name="description" content="I build fast, conversion-focused websites and AI-powered automations that give small businesses back their time. Scroll to fly through the studio." />
+  <style>
+    /* Dark theme — matches the generated scenes (near-black #07080C, cyan/blue accents). */
+    :root, .sw-root {
+      --sw-bg: #07080C;
+      --sw-ink: #E8EAF2;
+      --sw-ink-soft: #8A90A3;
+      --sw-accent: #22D3EE;
+      --sw-font-display: "Avenir Next", "Helvetica Neue", system-ui, sans-serif;
+      --sw-font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, system-ui, sans-serif;
+    }
+    /* Dark-theme overrides for engine chrome (engine CSS lives in @layer sw, so these win). */
+    .sw-nav { background: rgba(14, 16, 24, .55); border-color: rgba(34, 211, 238, .18); }
+    .sw-nav__item { color: var(--sw-ink-soft); }
+    .sw-nav__item:hover { color: var(--sw-ink); }
+    .sw-nav__item.is-active { color: #06090e; background: var(--sw-accent); }
+    .sw-topcta { color: #06090e; background: var(--sw-accent); }
+    .sw-copy__tags li {
+      color: color-mix(in srgb, var(--sw-accent) 80%, #fff);
+      background: color-mix(in srgb, var(--sw-accent) 12%, rgba(10, 12, 18, .6));
+      border-color: color-mix(in srgb, var(--sw-accent) 35%, transparent);
+      backdrop-filter: blur(6px);
+    }
+    .sw-btn--primary { color: #06090e; background: var(--sw-accent); }
+    .sw-btn--ghost { color: var(--sw-ink); border-color: color-mix(in srgb, var(--sw-ink) 30%, transparent); }
+    .sw-route__label { color: var(--sw-ink); background: rgba(14, 16, 24, .8); }
+    .sw-copy__title { text-shadow: 0 2px 28px rgba(4, 6, 10, .85); }
+    .sw-copy__body { text-shadow: 0 1px 16px rgba(4, 6, 10, .9); }
+    .sw-copylayer::before {
+      background: linear-gradient(90deg, rgba(7, 8, 12, .92) 0%, rgba(7, 8, 12, .72) 34%, rgba(7, 8, 12, .34) 62%, transparent 100%);
+    }
+
+    /* ---- Contact modal ---- */
+    .cm-backdrop {
+      position: fixed; inset: 0; z-index: 200;
+      background: rgba(4, 5, 9, .72); backdrop-filter: blur(8px);
+      display: grid; place-items: center; padding: 24px;
+      opacity: 0; pointer-events: none; transition: opacity .25s;
+    }
+    .cm-backdrop.is-open { opacity: 1; pointer-events: auto; }
+    .cm-panel {
+      width: min(92vw, 520px); max-height: 90vh; overflow-y: auto;
+      background: linear-gradient(165deg, #0E1119 0%, #0A0C12 100%);
+      border: 1px solid rgba(34, 211, 238, .22); border-radius: 20px;
+      padding: clamp(24px, 4vw, 36px);
+      box-shadow: 0 24px 80px rgba(0, 0, 0, .6), 0 0 0 1px rgba(34, 211, 238, .06), 0 0 60px rgba(34, 211, 238, .07);
+      transform: translateY(14px) scale(.98); transition: transform .25s;
+    }
+    .cm-backdrop.is-open .cm-panel { transform: none; }
+    .cm-panel h2 {
+      margin: 0; font-family: var(--sw-font-display); font-weight: 700;
+      font-size: 1.6rem; color: var(--sw-ink); letter-spacing: -.01em;
+    }
+    .cm-panel p.cm-sub { margin: 10px 0 22px; color: var(--sw-ink-soft); font-size: .95rem; line-height: 1.5; }
+    .cm-field { margin-bottom: 14px; }
+    .cm-field label { display: block; font-size: .78rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--sw-ink-soft); margin-bottom: 6px; }
+    .cm-field input, .cm-field select, .cm-field textarea {
+      width: 100%; box-sizing: border-box; font: inherit; font-size: .95rem; color: var(--sw-ink);
+      background: rgba(255, 255, 255, .04); border: 1px solid rgba(138, 144, 163, .25);
+      border-radius: 10px; padding: 12px 14px; outline: none; transition: border-color .2s, box-shadow .2s;
+    }
+    .cm-field select { appearance: none; background-image: linear-gradient(45deg, transparent 50%, #8A90A3 50%), linear-gradient(135deg, #8A90A3 50%, transparent 50%); background-position: calc(100% - 20px) 50%, calc(100% - 14px) 50%; background-size: 6px 6px; background-repeat: no-repeat; }
+    .cm-field select option { background: #0E1119; color: var(--sw-ink); }
+    .cm-field textarea { min-height: 110px; resize: vertical; }
+    .cm-field input:focus, .cm-field select:focus, .cm-field textarea:focus {
+      border-color: var(--sw-accent); box-shadow: 0 0 0 3px rgba(34, 211, 238, .15);
+    }
+    .cm-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    @media (max-width: 560px) { .cm-row { grid-template-columns: 1fr; } }
+    .cm-actions { display: flex; align-items: center; gap: 14px; margin-top: 22px; }
+    .cm-submit {
+      font: inherit; font-weight: 600; font-size: .95rem; cursor: pointer;
+      color: #06090e; background: var(--sw-accent); border: 0; border-radius: 999px;
+      padding: 13px 26px; transition: transform .2s, opacity .2s;
+    }
+    .cm-submit:hover { transform: translateY(-2px); }
+    .cm-submit[disabled] { opacity: .55; cursor: wait; transform: none; }
+    .cm-cancel { font: inherit; font-size: .9rem; color: var(--sw-ink-soft); background: none; border: 0; cursor: pointer; }
+    .cm-cancel:hover { color: var(--sw-ink); }
+    .cm-close {
+      position: absolute; top: 16px; right: 18px; font-size: 1.5rem; line-height: 1;
+      color: var(--sw-ink-soft); background: none; border: 0; cursor: pointer; padding: 6px;
+    }
+    .cm-close:hover { color: var(--sw-ink); }
+    .cm-panel { position: relative; }
+    .cm-status { margin-top: 16px; font-size: .92rem; line-height: 1.5; display: none; }
+    .cm-status.is-error { display: block; color: #F87171; }
+    .cm-success { text-align: center; padding: 28px 6px; display: none; }
+    .cm-success .cm-check {
+      width: 58px; height: 58px; margin: 0 auto 18px; border-radius: 50%;
+      display: grid; place-items: center; font-size: 1.6rem; color: #06090e;
+      background: var(--sw-accent); box-shadow: 0 0 40px rgba(34, 211, 238, .45);
+    }
+    .cm-success h3 { margin: 0 0 8px; font-family: var(--sw-font-display); color: var(--sw-ink); font-size: 1.3rem; }
+    .cm-success p { margin: 0; color: var(--sw-ink-soft); font-size: .95rem; line-height: 1.5; }
+    .cm-hp { position: absolute; left: -9999px; opacity: 0; height: 0; overflow: hidden; }
+  </style>
+</head>
+<body>
+  <div id="top"></div>
+  <div id="world"></div>
+
+  <div class="cm-backdrop" id="contact-modal" role="dialog" aria-modal="true" aria-labelledby="cm-title" hidden>
+    <div class="cm-panel">
+      <button class="cm-close" type="button" aria-label="Close">×</button>
+      <form id="cm-form" novalidate>
+        <h2 id="cm-title">Tell me about your project</h2>
+        <p class="cm-sub">I reply within 24 hours with honest feedback and a clear next step — no obligation, no sales pitch.</p>
+        <div class="cm-row">
+          <div class="cm-field">
+            <label for="cm-name">Name *</label>
+            <input id="cm-name" name="name" type="text" required autocomplete="name" />
+          </div>
+          <div class="cm-field">
+            <label for="cm-email">Email *</label>
+            <input id="cm-email" name="email" type="email" required autocomplete="email" />
+          </div>
+        </div>
+        <div class="cm-row">
+          <div class="cm-field">
+            <label for="cm-company">Company</label>
+            <input id="cm-company" name="company" type="text" autocomplete="organization" />
+          </div>
+          <div class="cm-field">
+            <label for="cm-type">What do you need?</label>
+            <select id="cm-type" name="project_type">
+              <option value="Website">A website that converts</option>
+              <option value="AI automation">AI automation</option>
+              <option value="Website + automation">Both — website + automation</option>
+              <option value="Not sure yet">Not sure yet — let's talk</option>
+            </select>
+          </div>
+        </div>
+        <div class="cm-field">
+          <label for="cm-message">Your project *</label>
+          <textarea id="cm-message" name="message" required placeholder="What are you building, and what's eating your time right now?"></textarea>
+        </div>
+        <div class="cm-hp" aria-hidden="true">
+          <label>Leave this empty<input name="website" type="text" tabindex="-1" autocomplete="off" /></label>
+        </div>
+        <div class="cm-actions">
+          <button class="cm-submit" type="submit">Send request</button>
+          <button class="cm-cancel" type="button">Cancel</button>
+        </div>
+        <p class="cm-status" role="alert"></p>
+      </form>
+      <div class="cm-success">
+        <div class="cm-check">✓</div>
+        <h3>Request sent.</h3>
+        <p>Thanks — I'll get back to you within 24 hours at the address you gave.</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="scrub-engine.js"></script>
+  <script>
+    mountScrollWorld(document.getElementById('world'), {
+      brand: { name: 'Luc Baxmann', href: '#top' },
+      cta: { label: 'Get in touch', href: '#contact-form' },
+      hint: 'scroll to enter the studio',
+      diveScroll: 1.5,
+      sections: [
+        {
+          id: 'intro', label: 'Home',
+          still: 'assets/intro.jpg',
+          clip: 'assets/vid/intro.mp4',
+          accent: '#22D3EE',
+          linger: 0.3,
+          eyebrow: 'Web development × AI automation',
+          title: 'Websites that convert. Workflows that run themselves.',
+          body: 'I build fast, conversion-focused websites and AI-powered automations that give small businesses back their time.',
+          tags: ['Next.js · React', 'AI workflow engineering', 'Remote — France & worldwide'],
+        },
+        {
+          id: 'web', label: 'Web',
+          still: 'assets/web.jpg',
+          clip: 'assets/vid/web.mp4',
+          accent: '#3B82F6',
+          linger: 0.35,
+          eyebrow: 'Service 01 — Web development',
+          title: 'Built to convert, not just to exist.',
+          body: 'Product-launch landing pages, company sites and custom web apps — engineered for speed, polish and one clear goal: turning visitors into clients.',
+          tags: ['Landing pages', 'Custom web apps', 'TypeScript · Tailwind · GSAP'],
+        },
+        {
+          id: 'automation', label: 'Automation',
+          still: 'assets/automation.jpg',
+          clip: 'assets/vid/automation.mp4',
+          accent: '#22D3EE',
+          linger: 0.35,
+          eyebrow: 'Service 02 — AI automation',
+          title: 'Your busywork, on autopilot.',
+          body: 'Custom-coded AI agents and workflows that handle prospecting, CRM updates and data entry — securely connected to the tools you already use, no passwords shared.',
+          tags: ['Custom AI agents — Python & TypeScript', 'Microsoft Graph · OAuth 2.0', 'REST APIs · Webhooks · CRM integrations'],
+        },
+        {
+          id: 'epi', label: 'Case study',
+          still: 'assets/epi.jpg',
+          clip: 'assets/vid/epi.mp4',
+          accent: '#38BDF8',
+          linger: 0.35,
+          eyebrow: 'Case study — Provence E.P.I',
+          title: 'A sales process turned into a system.',
+          body: 'Launch landing pages, automated prospect research and a custom CRM — manual, scattered work replaced by one connected pipeline.',
+          tags: ['Conversion landing pages', 'Automated prospecting', 'Custom CRM'],
+        },
+        {
+          id: 'accede', label: 'Consulting',
+          still: 'assets/accede.jpg',
+          clip: 'assets/vid/accede.mp4',
+          accent: '#60A5FA',
+          linger: 0.35,
+          eyebrow: 'Consulting — ACCEDE Provence Entrepreneurs',
+          title: 'AI that fits real operations.',
+          body: 'Advised SMEs on integrating AI where it actually pays off — prospect targeting, outreach automation and partner relations. Use cases, not buzzwords.',
+          tags: ['AI strategy for SMEs', 'Prospecting automation'],
+        },
+        {
+          id: 'contact', label: 'Contact',
+          still: 'assets/contact.jpg',
+          clip: 'assets/vid/contact.mp4',
+          accent: '#22D3EE',
+          scroll: 1.7,
+          eyebrow: "Let's talk",
+          title: 'Get a free automation audit.',
+          body: "Tell me where your team's time goes — I'll show you what a sharper website and a few well-built automations can win back.",
+          tags: [],
+          cta: {
+            primary: { label: 'Book a discovery call', href: '#contact-form' },
+            secondary: { label: 'Email me', href: 'mailto:luc.baxmannrenard@kedgebs.com' },
+          },
+        },
+      ],
+      // Architecture A: one continuous camera take — seams crossfade directly, no connectors.
+      connectors: [null, null, null, null, null],
+    });
+
+    // ---- Contact form (Supabase + email notification) ----
+    (function () {
+      const SUPABASE_URL = 'https://jahiessgxbsgrrtkleqd.supabase.co';
+      const SUPABASE_KEY = 'sb_publishable_wzzRDsYs4df_vVdZcF7YcA_1BEIa8BY'; // publishable: safe to expose, RLS insert-only
+      const NOTIFY_EMAIL = 'luc.baxmannrenard@kedgebs.com';
+
+      const modal = document.getElementById('contact-modal');
+      const form = document.getElementById('cm-form');
+      const success = modal.querySelector('.cm-success');
+      const status = modal.querySelector('.cm-status');
+      const submitBtn = modal.querySelector('.cm-submit');
+      let lastFocus = null;
+
+      function openModal() {
+        lastFocus = document.activeElement;
+        modal.hidden = false;
+        requestAnimationFrame(() => modal.classList.add('is-open'));
+        form.style.display = '';
+        success.style.display = 'none';
+        setTimeout(() => document.getElementById('cm-name').focus(), 260);
+      }
+      function closeModal() {
+        modal.classList.remove('is-open');
+        setTimeout(() => { modal.hidden = true; }, 260);
+        if (lastFocus) lastFocus.focus();
+      }
+
+      // Any CTA pointing at #contact-form opens the modal (topbar + final section).
+      document.addEventListener('click', (e) => {
+        const a = e.target.closest('a[href="#contact-form"]');
+        if (a) { e.preventDefault(); openModal(); }
+      });
+      modal.querySelector('.cm-close').addEventListener('click', closeModal);
+      modal.querySelector('.cm-cancel').addEventListener('click', closeModal);
+      modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !modal.hidden) closeModal(); });
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        status.classList.remove('is-error');
+        if (!form.reportValidity()) return;
+
+        const data = Object.fromEntries(new FormData(form).entries());
+        if (data.website) { form.style.display = 'none'; success.style.display = 'block'; return; } // honeypot
+        delete data.website;
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending…';
+
+        const record = { ...data, user_agent: navigator.userAgent.slice(0, 250) };
+        const save = fetch(SUPABASE_URL + '/rest/v1/contact_requests', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', apikey: SUPABASE_KEY, Authorization: 'Bearer ' + SUPABASE_KEY, Prefer: 'return=minimal' },
+          body: JSON.stringify(record),
+        }).then(r => { if (!r.ok) throw new Error('supabase ' + r.status); });
+
+        const notify = fetch('https://formsubmit.co/ajax/' + NOTIFY_EMAIL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({
+            _subject: 'Portfolio — new contact request from ' + data.name,
+            Name: data.name, Email: data.email, Company: data.company || '—',
+            'Project type': data.project_type, Message: data.message,
+          }),
+        }).then(r => { if (!r.ok) throw new Error('formsubmit ' + r.status); });
+
+        const results = await Promise.allSettled([save, notify]);
+        const savedOrNotified = results.some(r => r.status === 'fulfilled');
+
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Send request';
+        if (savedOrNotified) {
+          form.reset();
+          form.style.display = 'none';
+          success.style.display = 'block';
+        } else {
+          status.textContent = 'Something went wrong — please email me directly at ' + NOTIFY_EMAIL + '.';
+          status.classList.add('is-error');
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
