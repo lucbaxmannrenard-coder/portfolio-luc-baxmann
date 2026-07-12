@@ -226,6 +226,23 @@
     /* Hide the scene route rail + hint once past the cinematic world */
     .sw-route, .sw-hint { transition: opacity .35s; }
     body.past-world .sw-route, body.past-world .sw-hint { opacity: 0 !important; pointer-events: none; }
+
+    /* Centered hero copy (scene 1) — the statement sits on the corridor's vanishing point */
+    .sw-copy--center {
+      left: 50%;
+      width: min(720px, 86vw);
+      margin-left: calc(min(720px, 86vw) / -2);
+      text-align: center;
+      padding: clamp(24px, 4vw, 48px) clamp(18px, 3vw, 40px);
+      background: radial-gradient(ellipse 60% 55% at center, rgba(7, 8, 12, .72) 0%, rgba(7, 8, 12, .38) 55%, transparent 78%);
+      border-radius: 32px;
+    }
+    .sw-copy--center .sw-copy__title { font-size: clamp(2.2rem, 5vw, 4rem); }
+    .sw-copy--center .sw-copy__body { max-width: 46ch; margin-left: auto; margin-right: auto; }
+    .sw-copy--center .sw-copy__tags { justify-content: center; }
+    /* No side gradient while the hero copy is up — the radial backdrop does the job */
+    .sw-copylayer::before { transition: opacity .4s; }
+    body.hero-copy .sw-copylayer::before { opacity: 0; }
   </style>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script defer src="/_vercel/insights/script.js"></script>
@@ -621,11 +638,17 @@
       });
       topbar.insertBefore(nav, topcta);
 
+      // Center the hero copy (scene 1) on the corridor's vanishing point.
+      const heroCopy = document.querySelector('.sw-copylayer .sw-copy');
+      if (heroCopy) heroCopy.classList.add('sw-copy--center');
+
       // Scroll spy on the content sections + hide the scene rail past the world.
       const world = document.getElementById('world');
       function spy() {
         const y = window.scrollY;
         document.body.classList.toggle('past-world', y > world.offsetHeight - innerHeight * 1.2);
+        // Side gradient off while the centered hero copy is visible (scene 1 ≈ first 1.5 viewport-heights).
+        document.body.classList.toggle('hero-copy', y < innerHeight * 1.1);
         let active = -1;
         btns.forEach(([b, href], i) => {
           const el = document.querySelector(href);
