@@ -1,0 +1,504 @@
+{
+  "directed": false,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "label": "encode.sh",
+      "file_type": "code",
+      "source_file": "generation/encode.sh",
+      "source_location": "L1",
+      "metadata": {
+        "language": "bash",
+        "kind": "file"
+      },
+      "_origin": "ast",
+      "community": 3,
+      "norm_label": "encode.sh",
+      "id": "generation_encode",
+      "community_name": "encode.sh"
+    },
+    {
+      "label": "encode.sh script",
+      "file_type": "code",
+      "source_file": "generation/encode.sh",
+      "source_location": "L1",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_entrypoint"
+      },
+      "_origin": "ast",
+      "community": 3,
+      "norm_label": "encode.sh script",
+      "id": "generation_encode_sh__entry",
+      "community_name": "encode.sh"
+    },
+    {
+      "label": "enc()",
+      "file_type": "code",
+      "source_file": "generation/encode.sh",
+      "source_location": "L10",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "community": 3,
+      "norm_label": "enc()",
+      "id": "generation_encode_enc",
+      "community_name": "encode.sh"
+    },
+    {
+      "label": "pipeline.py",
+      "file_type": "code",
+      "source_file": "generation/pipeline.py",
+      "source_location": "L1",
+      "_origin": "ast",
+      "community": 0,
+      "norm_label": "pipeline.py",
+      "id": "generation_pipeline",
+      "community_name": "pipeline.py"
+    },
+    {
+      "label": "gen_still()",
+      "file_type": "code",
+      "source_file": "generation/pipeline.py",
+      "source_location": "L27",
+      "_origin": "ast",
+      "community": 0,
+      "norm_label": "gen_still()",
+      "id": "generation_pipeline_gen_still",
+      "community_name": "pipeline.py"
+    },
+    {
+      "label": "save_video()",
+      "file_type": "code",
+      "source_file": "generation/pipeline.py",
+      "source_location": "L37",
+      "_origin": "ast",
+      "community": 0,
+      "norm_label": "save_video()",
+      "id": "generation_pipeline_save_video",
+      "community_name": "pipeline.py"
+    },
+    {
+      "label": "gen_video()",
+      "file_type": "code",
+      "source_file": "generation/pipeline.py",
+      "source_location": "L47",
+      "_origin": "ast",
+      "community": 0,
+      "norm_label": "gen_video()",
+      "id": "generation_pipeline_gen_video",
+      "community_name": "pipeline.py"
+    },
+    {
+      "label": "extract_last()",
+      "file_type": "code",
+      "source_file": "generation/pipeline.py",
+      "source_location": "L67",
+      "_origin": "ast",
+      "community": 0,
+      "norm_label": "extract_last()",
+      "id": "generation_pipeline_extract_last",
+      "community_name": "pipeline.py"
+    },
+    {
+      "label": "qa-email.mjs",
+      "file_type": "code",
+      "source_file": "generation/qa-email.mjs",
+      "source_location": "L1",
+      "_origin": "ast",
+      "community": 7,
+      "norm_label": "qa-email.mjs",
+      "id": "generation_qa_email",
+      "community_name": "qa-email.mjs"
+    },
+    {
+      "label": "qa-fix.mjs",
+      "file_type": "code",
+      "source_file": "generation/qa-fix.mjs",
+      "source_location": "L1",
+      "_origin": "ast",
+      "community": 8,
+      "norm_label": "qa-fix.mjs",
+      "id": "generation_qa_fix",
+      "community_name": "qa-fix.mjs"
+    },
+    {
+      "label": "qa-form.mjs",
+      "file_type": "code",
+      "source_file": "generation/qa-form.mjs",
+      "source_location": "L1",
+      "_origin": "ast",
+      "community": 9,
+      "norm_label": "qa-form.mjs",
+      "id": "generation_qa_form",
+      "community_name": "qa-form.mjs"
+    },
+    {
+      "label": "qa-prod.mjs",
+      "file_type": "code",
+      "source_file": "generation/qa-prod.mjs",
+      "source_location": "L1",
+      "_origin": "ast",
+      "community": 10,
+      "norm_label": "qa-prod.mjs",
+      "id": "generation_qa_prod",
+      "community_name": "qa-prod.mjs"
+    },
+    {
+      "label": "qa-prod2.mjs",
+      "file_type": "code",
+      "source_file": "generation/qa-prod2.mjs",
+      "source_location": "L1",
+      "_origin": "ast",
+      "community": 4,
+      "norm_label": "qa-prod2.mjs",
+      "id": "generation_qa_prod2",
+      "community_name": "qa-prod2.mjs"
+    },
+    {
+      "label": "errors",
+      "file_type": "code",
+      "source_file": "generation/qa-prod2.mjs",
+      "source_location": "L4",
+      "_origin": "ast",
+      "community": 4,
+      "norm_label": "errors",
+      "id": "generation_qa_prod2_errors",
+      "community_name": "qa-prod2.mjs"
+    },
+    {
+      "label": "qa-sections.mjs",
+      "file_type": "code",
+      "source_file": "generation/qa-sections.mjs",
+      "source_location": "L1",
+      "_origin": "ast",
+      "community": 5,
+      "norm_label": "qa-sections.mjs",
+      "id": "generation_qa_sections",
+      "community_name": "qa-sections.mjs"
+    },
+    {
+      "label": "errors",
+      "file_type": "code",
+      "source_file": "generation/qa-sections.mjs",
+      "source_location": "L4",
+      "_origin": "ast",
+      "community": 5,
+      "norm_label": "errors",
+      "id": "generation_qa_sections_errors",
+      "community_name": "qa-sections.mjs"
+    },
+    {
+      "label": "qa.mjs",
+      "file_type": "code",
+      "source_file": "generation/qa.mjs",
+      "source_location": "L1",
+      "_origin": "ast",
+      "community": 1,
+      "norm_label": "qa.mjs",
+      "id": "generation_qa",
+      "community_name": "qa.mjs"
+    },
+    {
+      "label": "widths",
+      "file_type": "code",
+      "source_file": "generation/qa.mjs",
+      "source_location": "L14",
+      "_origin": "ast",
+      "community": 1,
+      "norm_label": "widths",
+      "id": "generation_qa_widths",
+      "community_name": "qa.mjs"
+    },
+    {
+      "label": "bounds",
+      "file_type": "code",
+      "source_file": "generation/qa.mjs",
+      "source_location": "L16",
+      "_origin": "ast",
+      "community": 1,
+      "norm_label": "bounds",
+      "id": "generation_qa_bounds",
+      "community_name": "qa.mjs"
+    },
+    {
+      "label": "settle()",
+      "file_type": "code",
+      "source_file": "generation/qa.mjs",
+      "source_location": "L20",
+      "_origin": "ast",
+      "community": 1,
+      "norm_label": "settle()",
+      "id": "generation_qa_settle",
+      "community_name": "qa.mjs"
+    },
+    {
+      "label": "shots.mjs",
+      "file_type": "code",
+      "source_file": "generation/shots.mjs",
+      "source_location": "L1",
+      "_origin": "ast",
+      "community": 6,
+      "norm_label": "shots.mjs",
+      "id": "generation_shots",
+      "community_name": "shots.mjs"
+    },
+    {
+      "label": "targets",
+      "file_type": "code",
+      "source_file": "generation/shots.mjs",
+      "source_location": "L2",
+      "_origin": "ast",
+      "community": 6,
+      "norm_label": "targets",
+      "id": "generation_shots_targets",
+      "community_name": "shots.mjs"
+    },
+    {
+      "label": "scrub-engine.js",
+      "file_type": "code",
+      "source_file": "site/scrub-engine.js",
+      "source_location": "L1",
+      "_origin": "ast",
+      "community": 2,
+      "norm_label": "scrub-engine.js",
+      "id": "site_scrub_engine",
+      "community_name": "scrub-engine.js"
+    },
+    {
+      "label": "mountScrollWorld()",
+      "file_type": "code",
+      "source_file": "site/scrub-engine.js",
+      "source_location": "L63",
+      "_origin": "ast",
+      "community": 2,
+      "norm_label": "mountscrollworld()",
+      "id": "site_scrub_engine_mountscrollworld",
+      "community_name": "scrub-engine.js"
+    },
+    {
+      "label": "seedParticles()",
+      "file_type": "code",
+      "source_file": "site/scrub-engine.js",
+      "source_location": "L336",
+      "_origin": "ast",
+      "community": 2,
+      "norm_label": "seedparticles()",
+      "id": "site_scrub_engine_seedparticles",
+      "community_name": "scrub-engine.js"
+    },
+    {
+      "label": "injectCSS()",
+      "file_type": "code",
+      "source_file": "site/scrub-engine.js",
+      "source_location": "L353",
+      "_origin": "ast",
+      "community": 2,
+      "norm_label": "injectcss()",
+      "id": "site_scrub_engine_injectcss",
+      "community_name": "scrub-engine.js"
+    }
+  ],
+  "links": [
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "generation/encode.sh",
+      "source_location": "L10",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "generation_encode",
+      "target": "generation_encode_enc"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "generation/encode.sh",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "generation_encode",
+      "target": "generation_encode_sh__entry"
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "generation/encode.sh",
+      "source_location": "L15",
+      "weight": 1.0,
+      "context": "call",
+      "confidence_score": 1.0,
+      "source": "generation_encode_sh__entry",
+      "target": "generation_encode_enc"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "generation/pipeline.py",
+      "source_location": "L67",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "generation_pipeline",
+      "target": "generation_pipeline_extract_last"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "generation/pipeline.py",
+      "source_location": "L27",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "generation_pipeline",
+      "target": "generation_pipeline_gen_still"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "generation/pipeline.py",
+      "source_location": "L47",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "generation_pipeline",
+      "target": "generation_pipeline_gen_video"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "generation/pipeline.py",
+      "source_location": "L37",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "generation_pipeline",
+      "target": "generation_pipeline_save_video"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "generation/pipeline.py",
+      "source_location": "L62",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "generation_pipeline_gen_video",
+      "target": "generation_pipeline_save_video"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "generation/qa-prod2.mjs",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "generation_qa_prod2",
+      "target": "generation_qa_prod2_errors"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "generation/qa-sections.mjs",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "generation_qa_sections",
+      "target": "generation_qa_sections_errors"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "generation/qa.mjs",
+      "source_location": "L16",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "generation_qa",
+      "target": "generation_qa_bounds"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "generation/qa.mjs",
+      "source_location": "L20",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "generation_qa",
+      "target": "generation_qa_settle"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "generation/qa.mjs",
+      "source_location": "L14",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "generation_qa",
+      "target": "generation_qa_widths"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "generation/shots.mjs",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "generation_shots",
+      "target": "generation_shots_targets"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "site/scrub-engine.js",
+      "source_location": "L353",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "site_scrub_engine",
+      "target": "site_scrub_engine_injectcss"
+    },
+    {
+      "relation": "indirect_call",
+      "confidence": "INFERRED",
+      "source_file": "site/scrub-engine.js",
+      "source_location": "L444",
+      "weight": 1.0,
+      "context": "collection",
+      "confidence_score": 0.5,
+      "source": "site_scrub_engine",
+      "target": "site_scrub_engine_mountscrollworld"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "site/scrub-engine.js",
+      "source_location": "L336",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "site_scrub_engine",
+      "target": "site_scrub_engine_seedparticles"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "site/scrub-engine.js",
+      "source_location": "L80",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "site_scrub_engine_mountscrollworld",
+      "target": "site_scrub_engine_injectcss"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "site/scrub-engine.js",
+      "source_location": "L307",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "site_scrub_engine_mountscrollworld",
+      "target": "site_scrub_engine_seedparticles"
+    }
+  ],
+  "hyperedges": [],
+  "built_at_commit": "e8ed9f154984ae195b34dfe30d5f6fe51a713009"
+}

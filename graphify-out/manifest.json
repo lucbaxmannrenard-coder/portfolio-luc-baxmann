@@ -1,0 +1,87 @@
+{
+  "generation/encode.sh": {
+    "mtime": 1783802315.7033162,
+    "ast_hash": "c708f897207e130f45d69cc0022fb49a",
+    "semantic_hash": "c708f897207e130f45d69cc0022fb49a"
+  },
+  "generation/pipeline.py": {
+    "mtime": 1783801998.9529145,
+    "ast_hash": "4b78ce8516b69a3a9d23e68c149ce77f",
+    "semantic_hash": "4b78ce8516b69a3a9d23e68c149ce77f"
+  },
+  "generation/qa-email.mjs": {
+    "mtime": 1783805210.4978638,
+    "ast_hash": "db095213fd2f9b366ceec65b52ef261f",
+    "semantic_hash": "db095213fd2f9b366ceec65b52ef261f"
+  },
+  "generation/qa-fix.mjs": {
+    "mtime": 1783803824.0079236,
+    "ast_hash": "576d32a00196715c7410af28d59a5412",
+    "semantic_hash": "576d32a00196715c7410af28d59a5412"
+  },
+  "generation/qa-form.mjs": {
+    "mtime": 1783804456.0190024,
+    "ast_hash": "8f7924f590297794f6ee6ece937ba22c",
+    "semantic_hash": "8f7924f590297794f6ee6ece937ba22c"
+  },
+  "generation/qa-prod.mjs": {
+    "mtime": 1783804817.4512691,
+    "ast_hash": "127e776943db9df71f47cd214c3baa6e",
+    "semantic_hash": "127e776943db9df71f47cd214c3baa6e"
+  },
+  "generation/qa-prod2.mjs": {
+    "mtime": 1783859259.3106046,
+    "ast_hash": "5e906ce1f5603ce3b1fc81acb77436ea",
+    "semantic_hash": "5e906ce1f5603ce3b1fc81acb77436ea"
+  },
+  "generation/qa-sections.mjs": {
+    "mtime": 1783859170.5909753,
+    "ast_hash": "40d1199921148646428e720658ccd4e8",
+    "semantic_hash": "40d1199921148646428e720658ccd4e8"
+  },
+  "generation/qa.mjs": {
+    "mtime": 1783803386.1273844,
+    "ast_hash": "b5598230e3c0e5c374b7df1fed101014",
+    "semantic_hash": "b5598230e3c0e5c374b7df1fed101014"
+  },
+  "generation/shots.mjs": {
+    "mtime": 1783858918.7507572,
+    "ast_hash": "11335af348ab537de547ee916516eeb0",
+    "semantic_hash": "11335af348ab537de547ee916516eeb0"
+  },
+  "site/scrub-engine.js": {
+    "mtime": 1783803810.0099556,
+    "ast_hash": "16b9bff74c01a7d106f034d664253f4f",
+    "semantic_hash": "16b9bff74c01a7d106f034d664253f4f"
+  },
+  "site/assets/vid/accede.mp4": {
+    "mtime": 1783803317.5562613,
+    "ast_hash": "eae8b3cbd7d63a6db82916979c1aa106",
+    "semantic_hash": "eae8b3cbd7d63a6db82916979c1aa106"
+  },
+  "site/assets/vid/automation.mp4": {
+    "mtime": 1783803304.5475273,
+    "ast_hash": "9e1b0956a2d13ff38ac06778699368f8",
+    "semantic_hash": "9e1b0956a2d13ff38ac06778699368f8"
+  },
+  "site/assets/vid/contact.mp4": {
+    "mtime": 1783803323.5749133,
+    "ast_hash": "096e63c262abc217c41663af047d7ce1",
+    "semantic_hash": "096e63c262abc217c41663af047d7ce1"
+  },
+  "site/assets/vid/epi.mp4": {
+    "mtime": 1783803311.5377011,
+    "ast_hash": "6310edceeeea3d83a683dadc38835586",
+    "semantic_hash": "6310edceeeea3d83a683dadc38835586"
+  },
+  "site/assets/vid/intro.mp4": {
+    "mtime": 1783803291.484525,
+    "ast_hash": "67f50753bc64fc1c0f5bbbdbaa51ae0f",
+    "semantic_hash": "67f50753bc64fc1c0f5bbbdbaa51ae0f"
+  },
+  "site/assets/vid/web.mp4": {
+    "mtime": 1783803297.696447,
+    "ast_hash": "a0e3e77ff231c6c5ba3f313e9f83d17f",
+    "semantic_hash": "a0e3e77ff231c6c5ba3f313e9f83d17f"
+  }
+}

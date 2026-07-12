@@ -1,0 +1,125 @@
+{
+  "communities": {
+    "0": [
+      "generation_pipeline",
+      "generation_pipeline_extract_last",
+      "generation_pipeline_gen_still",
+      "generation_pipeline_gen_video",
+      "generation_pipeline_save_video"
+    ],
+    "1": [
+      "generation_qa",
+      "generation_qa_bounds",
+      "generation_qa_settle",
+      "generation_qa_widths"
+    ],
+    "2": [
+      "site_scrub_engine",
+      "site_scrub_engine_injectcss",
+      "site_scrub_engine_mountscrollworld",
+      "site_scrub_engine_seedparticles"
+    ],
+    "3": [
+      "generation_encode",
+      "generation_encode_enc",
+      "generation_encode_sh__entry"
+    ],
+    "4": [
+      "generation_qa_prod2",
+      "generation_qa_prod2_errors"
+    ],
+    "5": [
+      "generation_qa_sections",
+      "generation_qa_sections_errors"
+    ],
+    "6": [
+      "generation_shots",
+      "generation_shots_targets"
+    ],
+    "7": [
+      "generation_qa_email"
+    ],
+    "8": [
+      "generation_qa_fix"
+    ],
+    "9": [
+      "generation_qa_form"
+    ],
+    "10": [
+      "generation_qa_prod"
+    ]
+  },
+  "cohesion": {
+    "0": 0.5,
+    "1": 0.5,
+    "2": 0.8333333333333334,
+    "3": 1.0,
+    "4": 1.0,
+    "5": 1.0,
+    "6": 1.0,
+    "7": 1.0,
+    "8": 1.0,
+    "9": 1.0,
+    "10": 1.0
+  },
+  "gods": [
+    {
+      "id": "site_scrub_engine_mountscrollworld",
+      "label": "mountScrollWorld()",
+      "degree": 3
+    },
+    {
+      "id": "generation_encode_sh__entry",
+      "label": "encode.sh script",
+      "degree": 2
+    },
+    {
+      "id": "generation_encode_enc",
+      "label": "enc()",
+      "degree": 2
+    },
+    {
+      "id": "generation_pipeline_save_video",
+      "label": "save_video()",
+      "degree": 2
+    },
+    {
+      "id": "generation_pipeline_gen_video",
+      "label": "gen_video()",
+      "degree": 2
+    },
+    {
+      "id": "site_scrub_engine_seedparticles",
+      "label": "seedParticles()",
+      "degree": 2
+    },
+    {
+      "id": "site_scrub_engine_injectcss",
+      "label": "injectCSS()",
+      "degree": 2
+    },
+    {
+      "id": "generation_qa_prod2_errors",
+      "label": "errors",
+      "degree": 1
+    },
+    {
+      "id": "generation_qa_sections_errors",
+      "label": "errors",
+      "degree": 1
+    },
+    {
+      "id": "generation_qa_widths",
+      "label": "widths",
+      "degree": 1
+    }
+  ],
+  "surprises": [],
+  "questions": [
+    {
+      "type": "isolated_nodes",
+      "question": "What connects `errors`, `errors`, `widths` to the rest of the system?",
+      "why": "5 weakly-connected nodes found - possible documentation gaps or missing edges."
+    }
+  ]
+}
