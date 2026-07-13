@@ -190,28 +190,55 @@ function mountScrollWorld(container, config) {
     window.scrollTo({ top: seg.start + (seg.end - seg.start) * 0.5, behavior: reduce ? 'auto' : 'smooth' });
   }
 
+  function attachClip(s, url) {
+    const v = document.createElement('video');
+    v.className = 'sw-scene__video';
+    v.muted = true; v.playsInline = true; v.preload = 'auto';
+    v.setAttribute('muted', ''); v.setAttribute('playsinline', '');
+    v.src = url;
+    v.addEventListener('loadedmetadata', () => { s.ready = true; read(); });
+    // Reveal the video (hide the still poster) only once a real frame has
+    // painted — on iOS a seeked-but-never-played muted video stays blank, so
+    // hiding the still on metadata alone would flash an empty scene.
+    v.addEventListener('seeked', () => { s.el.classList.add('has-clip'); }, { once: true });
+    v.addEventListener('loadeddata', () => { try { v.pause(); } catch (e) {} if (userReady) primeVideo(v); });
+    s.el.appendChild(v); s.video = v; s.hasClip = true;
+  }
+
+  // Download the clip bytes without mounting a <video>: costs bandwidth only, never
+  // a decoder. Runs ahead of the attach window so attaching later is instant.
+  function prefetchClip(s) {
+    if (reduce || s.blobUrl || s.fetching || !s.clip) return;
+    s.fetching = true;
+    // Serve the lighter mobile encode on phones when one was provided.
+    const url = (isMobile() && s.clipM) ? s.clipM : s.clip;
+    fetch(url).then(r => r.ok ? r.blob() : Promise.reject(new Error('404')))
+      .then(blob => { s.blobUrl = URL.createObjectURL(blob); read(); })
+      .catch(() => { s.fetching = false; });
+  }
+
   function loadClip(s) {
     // Under prefers-reduced-motion we never load the clips at all — the stills stay up
     // and simply cross-dissolve as you scroll. No scrubbed video motion, no decode cost.
     if (reduce || s.loading || !s.clip) return;
+    if (!s.blobUrl) { prefetchClip(s); return; }   // attach retries via read() once bytes land
     s.loading = true;
-    // Serve the lighter mobile encode on phones when one was provided.
-    const url = (isMobile() && s.clipM) ? s.clipM : s.clip;
-    fetch(url).then(r => r.ok ? r.blob() : Promise.reject(new Error('404')))
-      .then(blob => {
-        const v = document.createElement('video');
-        v.className = 'sw-scene__video';
-        v.muted = true; v.playsInline = true; v.preload = 'auto';
-        v.setAttribute('muted', ''); v.setAttribute('playsinline', '');
-        v.src = URL.createObjectURL(blob);
-        v.addEventListener('loadedmetadata', () => { s.ready = true; read(); });
-        // Reveal the video (hide the still poster) only once a real frame has
-        // painted — on iOS a seeked-but-never-played muted video stays blank, so
-        // hiding the still on metadata alone would flash an empty scene.
-        v.addEventListener('seeked', () => { s.el.classList.add('has-clip'); }, { once: true });
-        v.addEventListener('loadeddata', () => { try { v.pause(); } catch (e) {} if (userReady) primeVideo(v); });
-        s.el.appendChild(v); s.video = v; s.hasClip = true;
-      }).catch(() => { s.loading = false; });
+    attachClip(s, s.blobUrl);
+  }
+
+  // iOS caps the number of live video decoders per page (~3-4 on iPhone); once all
+  // six scenes have mounted a <video>, the later ones silently stop painting and the
+  // world freezes on its posters after a couple of scenes. Far-off scenes hand their
+  // decoder back here and re-attach instantly from the cached blob when approached.
+  const EVICT = 1.9;   // vh-units past the seam; must exceed the mobile attach window
+  function unloadClip(s) {
+    if (!s.video) return;
+    try { s.video.pause(); } catch (e) {}
+    s.video.removeAttribute('src');
+    try { s.video.load(); } catch (e) {}   // this is what actually frees the decoder on iOS
+    s.video.remove();
+    s.video = null; s.hasClip = false; s.ready = false; s.loading = false;
+    s.el.classList.remove('has-clip');
   }
 
   function read() {
@@ -222,7 +249,13 @@ function mountScrollWorld(container, config) {
 
     for (let i = 0; i < NSEG; i++) {
       const s = SEGMENTS[i];
-      if (y > s.start - 1.6 * vh && y < s.end + 1.6 * vh) loadClip(s);
+      // Phones: prefetch bytes within 1.6vh but only mount the <video> (= claim a
+      // decoder) within 1.0vh, and release it again past 1.9vh — never more than
+      // ~3 live decoders, under the iOS per-page cap. Desktop keeps the 1.6 window.
+      const attachW = isMobile() ? 1.0 : 1.6;
+      if (y > s.start - attachW * vh && y < s.end + attachW * vh) loadClip(s);
+      else if (y > s.start - 1.6 * vh && y < s.end + 1.6 * vh) prefetchClip(s);
+      else if (isMobile() && s.video && (y < s.start - EVICT * vh || y > s.end + EVICT * vh)) unloadClip(s);
       const local = clamp((y - s.start) / (s.end - s.start), 0, 1);
       s.target = s.linger ? lingerEase(local, s.linger) : local;
       let outside = 0;
