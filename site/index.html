@@ -243,6 +243,20 @@
     .sw-copy--center .sw-copy__cta { justify-content: center; }
     /* No side gradient anywhere — each centered copy carries its own radial backdrop */
     .sw-copylayer::before { display: none; }
+
+    /* Phones: the engine bottom-anchors .sw-copy, but its per-frame inline
+       translateY(-50%…) assumes top-centering — with the centered class the copy
+       ends up under the topbar. Re-center vertically and narrow the block so it
+       clears the route dots on the right. */
+    @media (max-width: 860px) {
+      .sw-copy--center {
+        top: 50%; bottom: auto;
+        width: 82vw; margin-left: -41vw;
+        padding: 20px 12px;
+      }
+      .sw-copy--center .sw-copy__title { font-size: clamp(1.8rem, 8vw, 2.6rem); }
+      .sw-copy--center .sw-copy__body { font-size: clamp(.92rem, 3.9vw, 1.05rem); }
+    }
   </style>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script defer src="/_vercel/insights/script.js"></script>
@@ -468,6 +482,7 @@
           id: 'intro', label: 'Home',
           still: 'assets/intro.jpg',
           clip: 'assets/vid/intro.mp4',
+          clipMobile: 'assets/vid/intro-m.mp4',
           accent: '#22D3EE',
           linger: 0.3,
           eyebrow: 'Web development × AI automation',
@@ -479,6 +494,7 @@
           id: 'web', label: 'Web',
           still: 'assets/web.jpg',
           clip: 'assets/vid/web.mp4',
+          clipMobile: 'assets/vid/web-m.mp4',
           accent: '#3B82F6',
           linger: 0.35,
           eyebrow: 'Service 01 — Web development',
@@ -490,6 +506,7 @@
           id: 'automation', label: 'Automation',
           still: 'assets/automation.jpg',
           clip: 'assets/vid/automation.mp4',
+          clipMobile: 'assets/vid/automation-m.mp4',
           accent: '#22D3EE',
           linger: 0.35,
           eyebrow: 'Service 02 — AI automation',
@@ -501,6 +518,7 @@
           id: 'epi', label: 'Case study',
           still: 'assets/epi.jpg',
           clip: 'assets/vid/epi.mp4',
+          clipMobile: 'assets/vid/epi-m.mp4',
           accent: '#38BDF8',
           linger: 0.35,
           eyebrow: 'Case study — Provence E.P.I',
@@ -512,6 +530,7 @@
           id: 'accede', label: 'Consulting',
           still: 'assets/accede.jpg',
           clip: 'assets/vid/accede.mp4',
+          clipMobile: 'assets/vid/accede-m.mp4',
           accent: '#60A5FA',
           linger: 0.35,
           eyebrow: 'Consulting — ACCEDE Provence Entrepreneurs',
@@ -523,6 +542,7 @@
           id: 'contact', label: 'Contact',
           still: 'assets/contact.jpg',
           clip: 'assets/vid/contact.mp4',
+          clipMobile: 'assets/vid/contact-m.mp4',
           accent: '#22D3EE',
           scroll: 1.7,
           eyebrow: "Let's talk",
