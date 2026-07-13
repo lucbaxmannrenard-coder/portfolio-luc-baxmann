@@ -39,9 +39,12 @@ lobby (hero) → studio web (service 1) → salle d'automatisation (service 2)
   (actuellement seuls les `mailto:` sont branchés).
 - Quand tu as tes premiers avis clients : ajouter témoignages chiffrés
   (le fond du site de référence byraphaellevy.com — preuves sociales).
-- Desktop only par choix : sur mobile les posters s'affichent mais le scrub vidéo
-  n'a pas de variantes allégées (`clipMobile`). Générer des encodes 720p `-g 4`
-  via `generation/encode.sh` (§ mobile du skill) si besoin plus tard.
+- Mobile : le scrub vidéo étant peu fiable sur iOS (plafond de décodeurs, Low
+  Power Mode), les téléphones dessinent des **séquences de frames JPEG sur
+  <canvas>** (technique pages produit Apple) — `site/assets/frames/<scène>/`,
+  config `frames:` dans index.html, génération via `generation/encode.sh`.
+  Le desktop garde le scrub vidéo 1080p ; des encodes 720p `clipMobile`
+  existent aussi en fallback pour les sections sans frames.
 
 ## Regénérer une scène
 

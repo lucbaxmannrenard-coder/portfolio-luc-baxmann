@@ -84,7 +84,7 @@ function mountScrollWorld(container, config) {
   const SEGMENTS = [];
   SECTIONS.forEach((s, i) => {
     const dive = { kind: 'dive', si: i, clip: s.clip, clipM: s.clipMobile, still: s.still, accent: s.accent,
-                   w: s.scroll || DIVE_W, linger: s.linger || 0 };
+                   frames: s.frames, w: s.scroll || DIVE_W, linger: s.linger || 0 };
     SEGMENTS.push(dive);
     s._seg = dive;
     // A connector is optional: if connectors[i] is falsy, the two dives simply
@@ -226,6 +226,61 @@ function mountScrollWorld(container, config) {
     attachClip(s, s.blobUrl);
   }
 
+  // ---- Canvas frame scrubbing (phones) ----
+  // iOS video decoders are unreliable for scroll-scrubbing (per-page decoder cap,
+  // Low Power Mode throttling). When a section provides `frames: { dir, count }`,
+  // phones skip <video> entirely and draw pre-extracted JPEG frames to a <canvas> —
+  // the Apple product-page technique. Deterministic: no decoder, no priming, no seek.
+  function loadFrames(s) {
+    if (reduce || s.fLoading || !s.frames) return;
+    s.fLoading = true;
+    s.imgs = new Array(s.frames.count);
+    s.fLoaded = 0; s.fLast = -1;
+    if (!s.canvas) {
+      const c = document.createElement('canvas');
+      c.className = 'sw-scene__video';
+      s.el.appendChild(c);
+      s.canvas = c; s.ctx = c.getContext('2d');
+    }
+    // Small download pool, in scroll order — partial loads already scrub (drawFrame
+    // falls back to the nearest loaded frame below the target).
+    let inflight = 0, next = 0;
+    const pump = () => {
+      while (inflight < 4 && next < s.frames.count) {
+        const i = next++;
+        const im = new Image();
+        im.decoding = 'async';
+        inflight++;
+        im.onload = () => {
+          inflight--; s.imgs[i] = im; s.fLoaded++;
+          if (i === 0) { s.ready = true; drawFrame(s, Math.round(clamp(s.cur) * (s.frames.count - 1)), true); }
+          pump();
+        };
+        im.onerror = () => { inflight--; pump(); };   // poster still covers the hole
+        im.src = s.frames.dir + String(i + 1).padStart(3, '0') + '.jpg';
+      }
+    };
+    pump();
+  }
+
+  function drawFrame(s, idx, force) {
+    let k = Math.min(Math.max(idx, 0), s.frames.count - 1);
+    while (k > 0 && !s.imgs[k]) k--;   // nearest loaded frame at or below target
+    const im = s.imgs[k];
+    if (!im) return;
+    const c = s.canvas, dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const cw = Math.round(c.clientWidth * dpr), ch = Math.round(c.clientHeight * dpr);
+    if (cw === 0 || ch === 0) return;
+    if (c.width !== cw || c.height !== ch) { c.width = cw; c.height = ch; force = true; }
+    if (!force && k === s.fLast) return;
+    // cover fit, focal band slightly above center (mirrors object-position center 44%)
+    const sc = Math.max(cw / im.width, ch / im.height);
+    const dw = im.width * sc, dh = im.height * sc;
+    s.ctx.drawImage(im, (cw - dw) / 2, (ch - dh) * 0.44, dw, dh);
+    s.fLast = k;
+    if (!s.painted) { s.painted = true; s.el.classList.add('has-clip'); }
+  }
+
   // iOS caps the number of live video decoders per page (~3-4 on iPhone); once all
   // six scenes have mounted a <video>, the later ones silently stop painting and the
   // world freezes on its posters after a couple of scenes. Far-off scenes hand their
@@ -249,11 +304,16 @@ function mountScrollWorld(container, config) {
 
     for (let i = 0; i < NSEG; i++) {
       const s = SEGMENTS[i];
-      // Phones: prefetch bytes within 1.6vh but only mount the <video> (= claim a
-      // decoder) within 1.0vh, and release it again past 1.9vh — never more than
-      // ~3 live decoders, under the iOS per-page cap. Desktop keeps the 1.6 window.
+      // Phones with frame sequences scrub a <canvas> — no video decoder at all.
+      // Otherwise: prefetch bytes within 1.6vh but only mount the <video> (= claim
+      // a decoder) within 1.0vh, and release it past 1.9vh — never more than ~3
+      // live decoders, under the iOS per-page cap. Desktop keeps the 1.6 window.
+      const useFrames = isMobile() && s.frames;
       const attachW = isMobile() ? 1.0 : 1.6;
-      if (y > s.start - attachW * vh && y < s.end + attachW * vh) loadClip(s);
+      if (useFrames) {
+        if (y > s.start - 1.6 * vh && y < s.end + 1.6 * vh) loadFrames(s);
+      }
+      else if (y > s.start - attachW * vh && y < s.end + attachW * vh) loadClip(s);
       else if (y > s.start - 1.6 * vh && y < s.end + 1.6 * vh) prefetchClip(s);
       else if (isMobile() && s.video && (y < s.start - EVICT * vh || y > s.end + EVICT * vh)) unloadClip(s);
       const local = clamp((y - s.start) / (s.end - s.start), 0, 1);
@@ -304,6 +364,13 @@ function mountScrollWorld(container, config) {
     const eps = isMobile() ? 0.02 : 0.008;   // coarser seek step on phones = fewer decodes
     for (let i = 0; i < NSEG; i++) {
       const s = SEGMENTS[i];
+      // Canvas scenes: lerp toward the target and repaint when the frame changes.
+      if (s.canvas && s.ready) {
+        if (!s.visible && Math.abs(s.cur - s.target) < 0.002) continue;
+        s.cur += (s.target - s.cur) * (reduce ? 1 : 0.18);
+        drawFrame(s, Math.round(clamp(s.cur) * (s.frames.count - 1)));
+        continue;
+      }
       if (!s.hasClip || !s.ready || !s.video) continue;
       // Never queue a seek while the decoder is still resolving the last one.
       // On phones a fast flick would otherwise pile up seeks and freeze the clip;
